@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build: ./backend/api-gateway
+    container_name: api-gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - fastapi-service
+      - openai-service
+
+  fastapi-service:
+    build: ./backend/fastapi-service
+    container_name: fastapi-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+
+  openai-service:
+    build: ./backend/openai-service
+    container_name: openai-service
+    ports:
+      - "5000:5000"
+
+  frontend-web:
+    build: ./frontend-web
+    container_name: frontend-web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+
+  frontend-mobile:
+    build: ./frontend-mobile
+    container_name: frontend-mobile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - api-gateway
+
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
