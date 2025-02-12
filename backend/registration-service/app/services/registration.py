@@ -8,11 +8,12 @@ def register_user(user_data: UserCreate):
         user = user_data.dict()
         user["password"] = hash_password(user["password"])
 
-        if not users_collection:
+        if users_collection is None:
             logger.error("❌ Cannot register user: Database is unavailable")
             return {"error": "Database is unavailable"}
 
         result = users_collection.insert_one(user)
+        
         logger.info(f"✅ User registered successfully: {user['email']}")
         return {"id": str(result.inserted_id), "email": user["email"], "username": user["username"]}
     except Exception as e:

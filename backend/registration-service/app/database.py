@@ -12,9 +12,20 @@ try:
     if not MONGO_URI:
         raise ValueError("❌ ERROR: MONGO_URI is missing in environment variables!")
     
-    client = MongoClient(MONGO_URI)
-    db = client["registration_system"]
-    users_collection = db["users"]
+    client = MongoClient(
+        MONGO_URI,
+        serverSelectionTimeoutMS=30000,
+        socketTimeoutMS=60000,
+        connectTimeoutMS=60000,
+        tls=True
+    )
+    
+    db = client.get_database("registration_system")
+    # Ensure database exists
+    if db is None:
+        raise Exception("MongoDB database 'registration_system' could not be initialized.")
+
+    users_collection = db.get_collection("users")
     
     # Check if the database is accessible
     client.admin.command("ping")

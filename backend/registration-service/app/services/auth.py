@@ -35,6 +35,9 @@ def authenticate_user(user_data: UserLogin):
         
         logger.info(f"✅ User logged in successfully: {user_data.email}")
         return {"access_token": token, "token_type": "bearer"}
+    except HTTPException as http_err:
+        raise HTTPException(status_code=http_err.status_code, detail=http_err.detail)
+    
     except Exception as e:
         logger.error(f"❌ Authentication Failed: {str(e)}")
-        raise HTTPException(status_code=500, detail="Authentication failed")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
