@@ -7,25 +7,24 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - fastapi-service
-      - openai-service
+      - registration-service
+      - ai-service
 
-  fastapi-service:
-    build: ./backend/fastapi-service
-    container_name: fastapi-service
+  registration-service:
+    build: ./backend/registration-service
+    container_name: registration-service
     ports:
       - "8000:8000"
-    depends_on:
-      - mongodb
+    env_file:
+      - ./backend/registration-service/.env
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+      - AI_SERVICE_URL=http://ai-service:5000
 
-  openai-service:
-    build: ./backend/openai-service
-    container_name: openai-service
-    ports:
-      - "5000:5000"
-
+  ai-service:
+    build: ./backend/AI-service
+    container_name: ai-service
+    env_file:
+      - ./backend/AI-service/.env
   frontend-web:
     build: ./frontend-web
     container_name: frontend-web
@@ -34,21 +33,10 @@ services:
     depends_on:
       - api-gateway
 
-  frontend-mobile:
-    build: ./frontend-mobile
-    container_name: frontend-mobile
-    ports:
-      - "8081:8081"
-    depends_on:
-      - api-gateway
-
-  mongodb:
-    image: mongo:6
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-
-volumes:
-  mongodb_data:
+  # frontend-mobile:
+  #   build: ./frontend-mobile
+  #   container_name: frontend-mobile
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     - api-gateway

@@ -1,13 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.routes import register, auth
 import uvicorn
 
 # Create FastAPI app
 app = FastAPI(title="Registration & Authentication API", version="1.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to frontend URL if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Include routers
-app.include_router(register.router, prefix="/api/register")
-app.include_router(auth.router, prefix="/api/auth")
+app.include_router(register.router, prefix="/register")
+app.include_router(auth.router, prefix="/auth")
 
 # Health check endpoint
 @app.get("/")
