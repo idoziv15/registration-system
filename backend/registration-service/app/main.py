@@ -8,7 +8,7 @@ app = FastAPI(title="Registration & Authentication API", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to frontend URL if needed
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

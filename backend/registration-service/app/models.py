@@ -9,6 +9,7 @@ class UserResponse(BaseModel):
     id: str
     email: EmailStr
     username: str
+    rnd_text: str
 
 class UserLogin(BaseModel):
     email: EmailStr

@@ -1,33 +1,57 @@
 import React, { useState } from "react";
 import { register } from "../api/auth";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { Button, Spinner, useToast } from "@chakra-ui/react";
 
 function SignUpForm() {
+  const toast = useToast();
   const [state, setState] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (evt) => {
-    const value = evt.target.value;
+  const handleChange = (e) => {
+    const value = e.target.value;
     setState({
       ...state,
-      [evt.target.name]: value,
+      [e.target.name]: value,
     });
   };
 
-  const handleOnSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
     const { name, email, password } = state;
 
     try {
       const response = await register(email, name, password);
-      toast.success(`✅ Registration successful! Welcome ${response.username}`);
+      console.log(response)
+      toast({
+        title: "Registration Successful!",
+        description: response,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      
+      toast.success(`✅ Registration successful! Welcome ${response.rnd_text}`);
     } catch (error) {
-      toast.error("❌ Registration failed! Please try again.");
+      toast({
+        title: "Error!",
+        description: "❌ Registration failed! Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,6 +96,7 @@ function SignUpForm() {
           required
         />
         <button type="submit">Sign Up</button>
+        {loading ? <Spinner size="sm" /> : "Register"}
       </form>
     </div>
   );

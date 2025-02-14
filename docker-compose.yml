@@ -1,14 +1,20 @@
 version: "3.8"
 
 services:
-  api-gateway:
-    build: ./backend/api-gateway
-    container_name: api-gateway
+  traefik:
+    image: traefik:v2.9
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
     ports:
       - "80:80"
-    depends_on:
-      - registration-service
-      - ai-service
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - registration_app_network
 
   registration-service:
     build: ./backend/registration-service
@@ -17,21 +23,40 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/registration-service/.env
+    labels:
+      - "traefik.http.routers.registration.rule=PathPrefix(`/register`)"
+      - "traefik.http.services.registration.loadbalancer.server.port=8000"
     environment:
       - AI_SERVICE_URL=http://ai-service:5000
+    depends_on:
+      - ai-service
+    networks:
+      - registration_app_network
 
   ai-service:
     build: ./backend/AI-service
     container_name: ai-service
+    ports:
+      - "5000:5000"
     env_file:
       - ./backend/AI-service/.env
+    environment:
+      - DEBUG=ai-service:*
+    labels:
+      - "traefik.http.routers.ai.rule=PathPrefix(`/ai`)"
+      - "traefik.http.services.ai.loadbalancer.server.port=5000"
+    networks:
+      - registration_app_network
+
   frontend-web:
     build: ./frontend-web
     container_name: frontend-web
     ports:
       - "3000:3000"
     depends_on:
-      - api-gateway
+      - traefik
+    networks:
+      - registration_app_network
 
   # frontend-mobile:
   #   build: ./frontend-mobile
@@ -40,3 +65,7 @@ services:
   #     - "8081:8081"
   #   depends_on:
   #     - api-gateway
+
+networks:
+  registration_app_network:
+    driver: bridge

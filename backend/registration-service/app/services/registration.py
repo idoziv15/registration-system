@@ -32,7 +32,7 @@ def register_user(user_data: UserCreate):
             "id": str(result.inserted_id),
             "email": user["email"],
             "username": user["username"],
-            "ai_text": ai_text
+            "rnd_text": ai_text
         }
     except Exception as e:
         logger.error(f"❌ Registration Failed: {str(e)}")
