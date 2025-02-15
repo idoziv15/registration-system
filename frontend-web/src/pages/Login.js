@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Box, VStack, Text, Divider, HStack, Link, Flex, Image, useToast, Spinner } from '@chakra-ui/react';
 import { login } from "../api/auth";
 import LoginButton from '../components/LoginButton';
@@ -8,11 +9,16 @@ import loginImage from '../assets/loginIllustration.svg';
 
 const LoginForm = () => {
   const toast = useToast();
+  const navigate = useNavigate();
   const [state, setState] = useState({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const allFieldsFilled = Object.values(state).every(value => value.trim() !== "");
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -29,9 +35,9 @@ const LoginForm = () => {
 
     try {
       const response = await login(email, password);
-      console.log("In login page 2: ", response)
+
       toast({
-        title: `Hello, ${response.username} You are logged in Successfully!`,
+        title: `You are logged in Successfully!`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -110,6 +116,8 @@ const LoginForm = () => {
               icon="password"
               type="password"
               passwordToggle
+              showPassword={showPassword} 
+              togglePassword={togglePasswordVisibility} 
             />
 
             {/* Forgot Password */}
@@ -120,7 +128,7 @@ const LoginForm = () => {
             </HStack>
 
             {/* Login Button */}
-            <LoginButton text="Log in" handleOnSubmit={handleOnSubmit} />
+            <LoginButton text="Log in" handleOnSubmit={handleOnSubmit} isDisabled={!allFieldsFilled} />
             {loading ? <Spinner size="sm" /> : "Signing in..."}
 
             {/* "Or" Text */}
@@ -142,7 +150,8 @@ const LoginForm = () => {
                 <Text fontSize="sm" color="gray.600" mb={2}>
                   Have no account yet?
                 </Text>
-                <Link
+                <Box
+                  as="button"
                   color="brand.primary"
                   border="1px solid"
                   borderColor="brand.primary"
@@ -151,11 +160,16 @@ const LoginForm = () => {
                   py={2}
                   fontWeight="medium"
                   _hover={{ bg: 'brand.primary', color: 'white' }}
+                  textAlign="center"
+                  fontSize="md"
+                  bg="white"
+                  boxShadow="sm"
                   w="full"
                   display="inline-block"
+                  onClick={() => navigate("/register")}
                 >
                   Register
-                </Link>
+                </Box>
               </Box>
             </VStack>
           </VStack>

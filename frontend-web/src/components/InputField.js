@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Input, InputGroup, InputLeftElement, InputRightElement, IconButton } from '@chakra-ui/react';
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const InputField = ({ placeholder, value, onChange, type = "text", icon, passwordToggle = false }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const IconComponent = icon === "email" ? FaEnvelope : FaLock;
+const InputField = ({ name, placeholder, value, onChange, type = "text", icon, passwordToggle = false, showPassword, togglePassword }) => {
+  let IconComponent;
+  switch (icon) {
+    case "email":
+      IconComponent = FaEnvelope;
+      break;
+    case "user":
+      IconComponent = FaUser;
+      break;
+    case "password":
+    default:
+      IconComponent = FaLock;
+      break;
+  }
 
   return (
     <InputGroup>
-      <InputLeftElement height="100%" children={<IconComponent color="#4B49AC" />} />
+      <InputLeftElement height="100%">
+        <IconComponent color="#4B49AC" />
+      </InputLeftElement>
       <Input
-        name={placeholder.toLowerCase()}
+        name={name}
         type={passwordToggle ? (showPassword ? 'text' : 'password') : type}
         placeholder={placeholder}
         value={value}
@@ -30,7 +42,7 @@ const InputField = ({ placeholder, value, onChange, type = "text", icon, passwor
             size="sm"
             borderColor="transparent"
             variant="unstyled"
-            onClick={togglePasswordVisibility}
+            onClick={togglePassword}
             _hover={{ color: 'brand.primary' }}
             _focus={{ boxShadow: 'none' }}
             _active={{ bg: 'transparent' }}

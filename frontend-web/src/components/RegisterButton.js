@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
 
-const LoginButton = ({ text, handleOnSubmit, isDisabled }) => {
+const RegisterButton = ({ text, handleOnSubmit, isDisabled }) => {
   return (
     <Button
       w="100%"
@@ -20,4 +20,4 @@ const LoginButton = ({ text, handleOnSubmit, isDisabled }) => {
   );
 };
 
-export default LoginButton;
+export default RegisterButton;
