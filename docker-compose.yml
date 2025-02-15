@@ -66,6 +66,7 @@ services:
 
   frontend-mobile:
     build: ./frontend-mobile
+    container_name: frontend-mobile
     volumes:
       - ./frontend-mobile:/app
       - /app/node_modules
@@ -77,6 +78,10 @@ services:
       - NODE_ENV=development
     stdin_open: true
     tty: true
+    depends_on:
+      - traefik
+    networks:
+      - registration_app_network
 
 networks:
   registration_app_network:
