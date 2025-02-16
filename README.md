@@ -66,28 +66,27 @@ docker-compose down
 ```
 
 ## **📱 Running frontend-mobile Manually**
-Since frontend-mobile is not included in docker-compose, you need to run it manually.
+Since frontend-mobile is not included in docker-compose, you need to run it manually with the Makefile.
 
-## **1️⃣ Install Dependencies**
+## **1️⃣ Run the following commands on the root folder:**
 ```
-cd frontend-mobile
-npm install
+make install     # Install dependencies
+make start       # Start Expo
+make clean       # Reinstall dependencies
+make lint        # Run ESLint
 ```
 
-## **2️⃣ Start Expo Development Server**
-```
-npx expo start --tunnel
-```
+## **2️⃣ Expo Development Server is running**
 
 - Use the QR code to run the app on Expo Go (Android/iOS).
 - For Android Emulator, run:
 ```
-adb reverse tcp:8081 tcp:8081
+make start-android
 ```
 
 - For iOS Simulator, run:
 ```
-npx expo start --ios
+make start-ios
 ```
 
 ## **3️⃣ Stopping frontend-mobile**
@@ -124,3 +123,10 @@ Ensure that your Azure Cosmos DB credentials in .env are correct.
 ✅ Run frontend-mobile manually with Expo
 
 Enjoy building! 🚀🔥
+
+![login page web](./assets/sign-in%20page.jpg)
+![sign-up page web](./assets/sign-up%20page.jpg)
+![forgot password modal](./assets/forgot_password.jpg)
+![successful registeration](./assets//success_registration.png)
+![successful login](./assets/successful_login.png)
+![login page mobile](./assets/login%20page%20mobile.png)

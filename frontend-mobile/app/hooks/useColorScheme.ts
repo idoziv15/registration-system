@@ -1,3 +1,4 @@
+import React from 'react';
 import { ColorSchemeName, useColorScheme as _useColorScheme } from "react-native";
 
 /**
