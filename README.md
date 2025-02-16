@@ -5,7 +5,7 @@ This repository contains the **Registration System**, which consists of multiple
 - **Registration Service** (FastAPI)
 - **AI Service** (Node.js)
 - **Frontend Web** (React)
-- **Frontend Mobile** (React Native) *(Not included in Docker Compose, manual setup required)*
+- **Frontend Mobile** (React Native)
 - **Database**: MongoDB Cosmos (Azure)
 
 ## **🚀 Getting Started**
@@ -57,6 +57,7 @@ Once everything is running, you can access:
 
 - Frontend Web (React App): http://localhost:3000/login
 - Traefik Dashboard: http://localhost:8080
+- Keep in mind, if any of the default ports are taken, you need to change the corresponding service port, both on its .env and on docker-compose file.
 
 ### **4️⃣ Stopping Services**
 To stop all containers, run:
@@ -114,12 +115,6 @@ docker system prune -a
 
 ## **2️⃣ MongoDB Connection Issues**
 Ensure that your Azure Cosmos DB credentials in .env are correct.
-
-## **3️⃣ Expo Stuck at "Starting Metro Bundler"?**
-Try running:
-```
-npx expo start --clear
-```
 
 ## **🚀 Summary**
 ✅ Run all services (except mobile) with docker-compose
