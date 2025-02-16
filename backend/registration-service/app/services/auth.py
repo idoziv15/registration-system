@@ -41,3 +41,17 @@ def authenticate_user(user_data: UserLogin):
     except Exception as e:
         logger.error(f"❌ Authentication Failed: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+def process_forgot_password(email: str):
+    """Handles forgot password logic"""
+    try:
+        user = users_collection.find_one({"email": email})
+        if not user:
+            raise HTTPException(status_code=404, detail="Email not registered")
+
+        return {"success": True, "message": "Password reset email sent"}
+    
+    except HTTPException as http_err:
+        raise http_err
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error")

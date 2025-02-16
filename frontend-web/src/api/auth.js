@@ -22,3 +22,13 @@ export const register = async (email, username, password) => {
     throw error;
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/forgot-password`, { email });
+    return response.data;
+  } catch (error) {
+    console.error("Forgot Password request failed:", error);
+    return { success: false, message: "Failed to send reset email" };
+  }
+};

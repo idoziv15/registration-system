@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Box, VStack, Text, Divider, HStack, Link, Flex, Image, useToast, Spinner } from '@chakra-ui/react';
+import { Box, VStack, Text, Divider, HStack, Link, Flex, Image, useToast, Spinner, useDisclosure } from '@chakra-ui/react';
 import { login } from "../api/auth";
 import LoginButton from '../components/LoginButton';
 import SocialButton from '../components/SocialButton';
 import InputField from '../components/InputField';
+import ForgotPasswordModal from '../components/ForgotPasswordModal';
 import loginImage from '../assets/loginIllustration.svg';
 
 const LoginForm = () => {
   const toast = useToast();
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -122,7 +124,7 @@ const LoginForm = () => {
 
             {/* Forgot Password */}
             <HStack w="100%" justify="flex-end">
-              <Link color="brand.primary" fontSize="sm" _hover={{ textDecoration: 'underline' }}>
+              <Link color="brand.primary" fontSize="sm" _hover={{ textDecoration: 'underline' }} onClick={onOpen}>
                 Forgot password?
               </Link>
             </HStack>
@@ -175,6 +177,8 @@ const LoginForm = () => {
           </VStack>
         </Box>
       </Box>
+      {/* Forgot Password Modal */}
+      <ForgotPasswordModal isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };
