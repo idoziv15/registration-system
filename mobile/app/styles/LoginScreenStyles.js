@@ -1,0 +1,136 @@
+import { StyleSheet } from "react-native";
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  logo: {
+    zIndex: -999,
+    width: 80,
+    height: 80,
+    marginBottom: 15,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+    color: "#2D2D2D",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    width: "100%",
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+    color: "#333",
+  },
+  icon: {
+    marginRight: 10,
+  },
+  forgotPassword: {
+    alignSelf: "flex-end",
+    marginTop: 5,
+    marginBottom: 15,
+  },
+  forgotPasswordText: {
+    fontSize: 14,
+    color: "#4A5FC1",
+  },
+  loginButton: {
+    backgroundColor: "#4A5FC1",
+    padding: 12,
+    borderRadius: 25,
+    width: "100%",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  loginButtonDisabled: {
+    backgroundColor: "#ACACE6",
+  },
+  loginButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  orContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    marginVertical: 10,
+  },
+  orLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#ccc",
+  },
+  orText: {
+    fontSize: 16,
+    color: "#777",
+    marginHorizontal: 10,
+  },
+  socialButtons: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-evenly",
+    marginBottom: 20,
+  },
+  socialButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#A0A0A0",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    width: "45%",
+    justifyContent: "center",
+  },
+  googleIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+  },
+  socialButtonText: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  registerButton: {
+    borderColor: "#4A5FC1",
+    borderWidth: 1,
+    padding: 12,
+    borderRadius: 25,
+    width: "100%",
+    alignItems: "center",
+  },
+  registerButtonText: {
+    fontSize: 16,
+    color: "#4A5FC1",
+    fontWeight: "bold",
+  },
+  passwordToggle: {
+    padding: 5,
+  },
+  noAccountText: {
+    fontSize: 14,
+    color: "#777",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+});

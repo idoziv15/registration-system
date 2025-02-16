@@ -5,7 +5,7 @@ This repository contains the **Registration System**, which consists of multiple
 - **Registration Service** (FastAPI)
 - **AI Service** (Node.js)
 - **Frontend Web** (React)
-- **Frontend Mobile** (React Native)
+- **Mobile** (React Native)
 - **Database**: MongoDB Cosmos (Azure)
 
 ## **🚀 Getting Started**
@@ -13,7 +13,7 @@ This repository contains the **Registration System**, which consists of multiple
 ### **1️⃣ Prerequisites**
 - **Docker** installed ([Download Docker](https://www.docker.com/get-started))
 - **Node.js & npm** installed ([Download Node.js](https://nodejs.org/)) *(For frontend-mobile only)*
-- **Expo CLI** installed globally *(For frontend-mobile only)*
+- **Expo CLI** installed globally *(For mobile only)*
   ```sh
   npm install -g expo-cli
   ```
@@ -31,12 +31,16 @@ cd registration-system
 Ensure that the following .env files exist:
 
 Backend AI Service (backend/AI-service/.env)
+
+**Make sure to insert YOUR openai api key**
 ```
 OPENAI_API_KEY=your-openai-api-key
 PORT=5000
 ```
 
 Backend Registration Service (backend/registration-service/.env)
+
+**Make sure to insert YOUR MongoDB URI**
 ```
 MONGO_URI=mongodb://registration-system-db:your-mongo-credentials@registration-system-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@registration-system-db@
 AI_SERVICE_URL=http://ai-service:5000
@@ -65,31 +69,21 @@ To stop all containers, run:
 docker-compose down
 ```
 
-## **📱 Running frontend-mobile Manually**
-Since frontend-mobile is not included in docker-compose, you need to run it manually with the Makefile.
+## **📱 Running mobile Manually**
+Since mobile is not included in docker-compose, you need to run it manually with the Makefile.
 
-## **1️⃣ Run the following commands on the root folder:**
+## **1️⃣ Run the following commands on the mobile folder:**
 ```
-make install     # Install dependencies
+make setup       # Install dependencies & setup the project
 make start       # Start Expo
-make clean       # Reinstall dependencies
-make lint        # Run ESLint
 ```
 
 ## **2️⃣ Expo Development Server is running**
-
+- For web illustration, go to http://localhost:8081
 - Use the QR code to run the app on Expo Go (Android/iOS).
-- For Android Emulator, run:
-```
-make start-android
-```
 
-- For iOS Simulator, run:
-```
-make start-ios
-```
 
-## **3️⃣ Stopping frontend-mobile**
+## **3️⃣ Stopping mobile**
 Press Ctrl + C to stop the process.
 
 
@@ -120,7 +114,7 @@ Ensure that your Azure Cosmos DB credentials in .env are correct.
 
 ✅ Test the app at http://localhost:3000/login
 
-✅ Run frontend-mobile manually with Expo
+✅ Run mobile manually with Expo
 
 Enjoy building! 🚀🔥
 
@@ -130,3 +124,4 @@ Enjoy building! 🚀🔥
 ![successful registeration](./assets//success_registration.png)
 ![successful login](./assets/successful_login.png)
 ![login page mobile](./assets/login%20page%20mobile.png)
+![register page mobile](./assets/register%20page%20mobile.png)
