@@ -48,7 +48,7 @@ const LoginForm = () => {
     } catch (error) {
       toast({
         title: "Error!",
-        description: "Login failed! Please check your credentials.",
+        description: "Login failed! Invalid email or password.",
         status: "error",
         duration: 5000,
         isClosable: true,
