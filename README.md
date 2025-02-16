@@ -70,7 +70,7 @@ docker-compose down
 ```
 
 ## **📱 Running mobile Manually**
-Since mobile is not included in docker-compose, you need to run it manually with the Makefile.
+Since mobile is not included in docker-compose, you need to run it manually with the Makefile. Just make sure all the other services are running (with docker) so the mobile app will be able to send server requests.
 
 ## **1️⃣ Run the following commands on the mobile folder:**
 ```
